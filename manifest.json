@@ -1,0 +1,21 @@
+{
+	"manifest_version": 3,
+	"name": "Should Handle It Themselves, for Google Photos",
+	"version": "0.0.1",
+	
+	"short_name": "S.H.I.T. for Google Photos",
+	"default_locale": "en",
+	"description": "Extension which implement what Google Photos Should Handle It Themselves",
+	"author": "Project SHIT",
+	"homepage_url": "https://github.com/proj-shit/gphoto-shit",
+	"icons": {
+		"16": "resources/icons/16.png",
+		"32": "resources/icons/32.png",
+		"48": "resources/icons/48.png",
+		"128": "resources/icons/128.png"
+	},
+
+	"action": {
+		"default_popup": "popup.html"
+	}
+}
