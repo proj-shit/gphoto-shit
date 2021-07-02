@@ -12,16 +12,22 @@ var Dependency = top.Dependency || function () {
             /**
              * @param {{id?: string, src: string}} dep 
              */
-            load: function (dep) {
-                s = document.createElement("script"),
-                    s.id = dep.id ? dep.id : null,
-                    s.type = "text/javascript",
-                    s.src = dep.src,
-                    s.onload = () => {
-                        loaded.push(dep);
-                        self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
-                    },
-                    document.head.appendChild(s)
+            load: async function (dep) {
+                return new Promise(
+                    resolve => {
+                        s = document.createElement("script"),
+                        s.id = dep.id ? dep.id : null,
+                        s.type = "text/javascript",
+                        s.src = dep.src,
+                        s.onload = () => {
+                            loaded.push(dep);
+                            self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
+                            resolve()
+                        },
+                        document.head.appendChild(s)
+                    }
+                )
+                
             },
             loaded: () => { return loaded; },
             /**
