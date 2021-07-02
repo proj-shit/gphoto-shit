@@ -2,15 +2,18 @@
 
 <head>
 	<script type="text/javascript" src="base.js"></script>
+	<script type="text/javascript" src="ui.js"></script>
 	<style type="text/css">
 		html {
 			width: 780px;
+			max-width: 780px;
 			height: 580px;
-			overflow-x: hidden;
+			max-height: 580px;
 		}
 
 		body {
 			margin: 0px;
+			overflow: hidden;
 		}
 
 		#title-bar {
@@ -45,34 +48,45 @@
 		}
 
 		#main {
-			display: inline-flex;
-			flex-direction: row;
-			align-content: stretch;
-			width: 100%;
-			min-height: calc(100% - 64px);
+			position: relative;
+			display: block;
+			overflow-y: scroll;
+			max-height: calc(100% - 64px);
 		}
 
-		.feature-menu {
-			position: sticky;
+		#feature-menu {
+			position: absolute;
+			display: inline-flex;
+			flex-direction: column;
 			background-color: white;
-			left: 0px;
+			margin: 0px 0px 0px 0px;
 			width: 72px;
+			height: max(100vh, 100%);
 			box-shadow: none;
-			z-index: 0;
+			z-index: 100;
 			overflow-x: hidden;
 			transition: box-shadow .15s linear, width .15s cubic-bezier(0.4, 0.0, 0.2, 1), z-index .15s linear;
 		}
 
-		.feature-menu:hover {
+		#feature-menu:hover {
 			box-shadow: 0px 1px 2px 0px rgba(60, 64, 67, .30), 0px 2px 6px 2px rgba(60, 64, 67, .15);
 			width: 256px;
-			z-index: 100;
 		}
 
-		.feature-container {
+		#feature-container {
+			position: relative;
+			display: inline-block;
+			width: 100%;
 			background-color: white;
-			flex-grow: 1;
 			overflow: visible;
+		}
+
+		#feature-iframe {
+			border: none;
+			min-width: 100%;
+			min-height: 100%;
+			height: max(100%, var(--content-height));
+			--content-height: 0px;
 		}
 	</style>
 </head>
@@ -95,11 +109,11 @@
 		</div>
 	</div>
 	<div id="main">
-		<div class="feature-menu">
+		<div id="feature-menu">
 
 		</div>
-		<div class="feature-container">
-
+		<div id="feature-container">
+			<iframe id="feature-iframe"></iframe>
 		</div>
 	</div>
 </body>

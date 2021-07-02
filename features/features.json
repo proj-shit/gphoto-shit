@@ -1,7 +1,20 @@
 [
     {
-        "name": "Hash Tags",
-        "entry_point": "hash_tags/main.html",
-        "used_scope": ["https://www.googleapis.com/auth/photoslibrary.readonly"]
+        "name": {
+            "zh_TW": "#標籤",
+            "en":"Hash Tags"
+        },
+        "entry_point": "features/hash_tags/main.html",
+        "icon": "features/hash_tags/icon.svg",
+        "dep": {
+            "js": [
+                "platform",
+                "gapi"
+            ],
+            "feature": []
+        },
+        "used_scope": [
+            "https://www.googleapis.com/auth/photoslibrary.readonly"
+        ]
     }
 ]

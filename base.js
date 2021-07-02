@@ -70,5 +70,5 @@ var Dependency = top.Dependency || function () {
 
 [
     { id: "platformswitch", src: "platform/platformswitch.js" },
-    { id: "features", src: "features/features.js" },
+    { id: "featuresloader", src: "features/featuresloader.js" },
 ].forEach(Dependency.load);
