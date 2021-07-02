@@ -1,0 +1,7 @@
+[
+    {
+        "name": "Hash Tags",
+        "entry_point": "hash_tags/main.html",
+        "used_scope": ["https://www.googleapis.com/auth/photoslibrary.readonly"]
+    }
+]
