@@ -1,11 +1,10 @@
 {
 	"manifest_version": 3,
-	"name": "Should Handle It Themselves, for Google Photos",
+	"name": "S.H.I.T. - for Google Photos",
 	"version": "0.0.1",
 	
-	"short_name": "S.H.I.T. for Google Photos",
 	"default_locale": "en",
-	"description": "Extension which implement what Google Photos Should Handle It Themselves",
+	"description": "Extension of stuff for Google Photos, what they Should Have Implemented Themselves",
 	"author": "Project SHIT",
 	"homepage_url": "https://github.com/proj-shit/gphoto-shit",
 	"icons": {
