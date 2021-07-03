@@ -1,2 +1,9 @@
 {
+	"title_text_element" : {
+		"message": "<span class=\"title-text title-forapp-text\">for Google相片<\/span><span class=\"title-text title-myapp-text\" style=\"margin-left: 5px\"><ruby><span style=\"font-weight: bold;\">那些他們早該自己搞定的功能<\/span><rt class=\"scale\" style=\"--scale-arg: .88, .8;\">Should Have Implemented Themselves\r\n\t\t<\/rt><\/ruby><\/span>"
+	},
+	"active_locale" : {
+		"message": "zh_TW",
+		"description": "Active Language Code"
+	}
 }

@@ -1,0 +1,33 @@
+#title-bar {
+	position: sticky;
+	background-color: white;
+	top: 0px;
+	left: 0px;
+	border-bottom: 1px solid #dadce0;
+	user-select: none;
+	z-index: 10000;
+}
+
+.title-text {
+	-webkit-font-smoothing: antialiased;
+	display: inline-block;
+	font-family: 'Product Sans', Arial, Helvetica, sans-serif;
+	text-rendering: optimizeLegibility;
+	line-height: 32px;
+}
+
+.title-forapp-text {
+	color: #cbd3dd;
+}
+
+span.title-forapp-text {
+	font-size: 16px;
+}
+
+.title-myapp-text {
+	color: #5f6368;
+}
+
+span.title-myapp-text {
+	font-size: 20px;
+}

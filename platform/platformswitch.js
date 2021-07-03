@@ -16,9 +16,18 @@ class PlatformRunner {
      * @param {function(string): string} getURL
      */
     constructor(
-        getURL
+        // runtime
+        getURL,
+
+        // locale
+        getActiveLocale,
+        getMessage,
     ) {
         this.runtime = {}
         this.runtime.getURL = getURL
+
+        this.locale = {}
+        this.locale.getActiveLocale = getActiveLocale
+        this.locale.getMessage = getMessage
     }
 }

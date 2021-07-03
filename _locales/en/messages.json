@@ -1,1 +1,9 @@
-{}
+{
+	"title_text_element" : {
+		"message": "<span class=\"title-text title-forapp-text\"><ruby>&nbsp;<rt class=\"transform-origin scale\" style=\"--transform-origin-arg: bottom right; --scale-arg: 0.9;\">stuff<\/rt><\/ruby>for Google Photos<\/span><span class=\"title-text title-myapp-text\"><ruby>&nbsp;<rt class=\"transform-origin scale\" style=\"--transform-origin-arg: bottom right; --scale-arg: 0.9;\">what they<\/rt><\/ruby>Should Have Implemented Themselves<\/span>"
+	},
+	"active_locale" : {
+		"message": "en",
+		"description": "Active Language Code"
+	}
+}

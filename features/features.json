@@ -1,7 +1,7 @@
 [
     {
         "name": {
-            "zh_TW": "#標籤",
+            "zh_TW": "點題標籤",
             "en":"Hash Tags"
         },
         "entry_point": "features/hash_tags/main.html",

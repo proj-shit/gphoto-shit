@@ -16,8 +16,8 @@ var Dependency = top.Dependency || function () {
                 return new Promise(
                     resolve => {
                         s = document.createElement("script"),
-                        s.id = dep.id ? dep.id : null,
                         s.type = "text/javascript",
+                        s.id = dep.id ? dep.id : null,
                         s.src = dep.src,
                         s.onload = () => {
                             loaded.push(dep);
