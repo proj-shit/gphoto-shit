@@ -1,0 +1,13 @@
+[
+    {
+        "name": {
+            "zh_TW": "點題標籤",
+            "en":"Hash Tags"
+        },
+        "entry_point": "/feature/hash_tags/main.html",
+        "icon": "feature/hash_tags/icon.svg",
+        "gapi_scope": [
+            "https://www.googleapis.com/auth/photoslibrary.readonly"
+        ]
+    }
+]
