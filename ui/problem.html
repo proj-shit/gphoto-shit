@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <style type="text/css">
+        body>div {
+            -webkit-font-smoothing: antialiased;
+            color: #3c4043;
+            font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            left: 0;
+            min-height: 360px;
+            padding: 64px 16px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+        }
+
+        body>div>div {
+            -webkit-font-smoothing: antialiased;
+            color: #3c4043;
+            font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            text-align: center;
+            width: 100%;
+        }
+
+        #icon {
+            -webkit-font-smoothing: antialiased;
+            fill: #3c4043;
+            font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            background-image: var(--image-url);
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 200px;
+            margin: 20px auto;
+            max-width: 100%;
+            width: 480px;
+        }
+
+        #problem-title {
+            -webkit-font-smoothing: antialiased;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            color: #202124;
+            margin-bottom: 16px;
+            font-family: 'Google Sans',Roboto,Arial,sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 2rem;
+        }
+
+        #problem-message {
+            -webkit-font-smoothing: antialiased;
+            text-size-adjust: 100%;
+            -webkit-user-select: none;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            color: #3c4043;
+            padding: 0 5px;
+            letter-spacing: .01428571em;
+            font-family: Roboto,Arial,sans-serif;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.25rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <div id="icon" style="--image-url: url(../resources/warning_black_24dp.svg)"></div>
+            <div id="problem-title"></div>
+            <div id="problem-message"></div>
+        </div>
+    </div>
+</body>
+
+</html>

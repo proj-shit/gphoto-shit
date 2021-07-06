@@ -1,8 +1,11 @@
-<html class="preload">
+<html class="before-load before-sign-in">
 
 <head>
-	<script type="text/javascript" src="dependency.js"></script>
+	<script type="text/javascript" src="/common/window_util.js"></script>
+	<script type="text/javascript" src="/common/platform.js"></script>
+	<script type="text/javascript" src="sandbox.js"></script>
 	<script type="text/javascript" src="ui.js"></script>
+	<script type="text/javascript" src="popup.js"></script>
 	<style type="text/css">
 		html {
 			width: 780px;
@@ -98,7 +101,7 @@
 			</div>
 		</div>
 		<div id="feature-iframe-container">
-			<iframe id="feature-iframe" name="feature-iframe"></iframe>
+			<iframe id="feature-iframe" name="feature-iframe" src="main.html"></iframe>
 		</div>
 	</div>
 </body>

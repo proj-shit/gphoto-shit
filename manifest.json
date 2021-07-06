@@ -23,7 +23,7 @@
 			],
 			"run_at": "document_end",
 			"js": [
-				"platform/platform.js",
+				"common/platform.js",
 				"content_script/getinfo.js"
 			]
 		}
@@ -31,15 +31,27 @@
 	"permissions": [
 		"tabs",
 		"webRequest",
+		"scripting",
+		"identity.email",
 		"identity"
 	],
 	"host_permissions": [
-		"https://www.googleapis.com/*"
+		"*://photos.google.com/*"
 	],
 	"action": {
 		"matches": [
 			"*://photos.google.com/*"
 		],
 		"default_popup": "ui/popup.html"
-	}
+	},
+	"oauth2": {
+        "client_id": "790646059739-5i693oc1r1q5eg2kqk371ram1gseg4nu.apps.googleusercontent.com",
+		"scopes": []
+    },
+	"sandbox": {
+		"pages": [
+			"/sandbox/eval.html"
+		  ]
+	},
+	"key": "igmdejkebcechpclfjklgnfbpkbgiljl"
 }

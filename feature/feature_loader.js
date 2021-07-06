@@ -47,7 +47,7 @@ var FEATURE = top.FEATURE || function () {
             var a = document.createElement("a")
             menuNode.appendChild(a),
                 a.classList.add("feature-menu-item-a"),
-                a.href = feat.entry_point,
+                a.href = `/feature/${feat.id}/index.html`,
                 a.target = "feature-iframe",
                 a.onclick = onFeatureMenuItemClick;
 
@@ -55,7 +55,7 @@ var FEATURE = top.FEATURE || function () {
             a.appendChild(div),
                 div.classList.add("feature-menu-item-layout")
 
-            fetch(platform.runtime.getURL(feat.icon))
+            fetch(platform.runtime.getURL(`/feature/${feat.id}/icon.svg`))
                 .then(r => r.text())
                 .then(t => {
                     div.innerHTML = t + div.innerHTML;

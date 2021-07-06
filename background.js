@@ -1,4 +1,4 @@
-// import '/platform/platform.js';
+// import '/common/platform.js';
 var platform = function () {
     if (typeof browser != "undefined") {
         return browser;
@@ -36,9 +36,10 @@ var WildcardURLRegExp = function (w) { return RegExp(RegExp.escapeInput(w).repla
 // end import
 
 try {
-    importScripts([
+    importScripts(
         "/background/enable_extension.js",
-    ])
+		"/background/gapi.js",
+    );
 } catch (error) {
     console.error(error);
 }

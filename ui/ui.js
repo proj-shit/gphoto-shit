@@ -1,47 +1,88 @@
-async function ensureLoadComplete(w) {
-	return new Promise(
-		resolve => {
-			w = w || window;
-			if (document.readyState === "complete") {
-				resolve();
-				return;
-			}
-			window.addEventListener("load", () => {
-				resolve();
-			});
-		}
-	)
+/**** require /common/window_util.js ****/
+
+async function refreshTab() {
+    platform.tabs.query({ active: true, currentWindow: true })
+        .then(
+            ([tab]) => {
+                platform.scripting.executeScript(
+                    {
+                        target: { tabId: tab.id },
+                        function: () => {
+                            window.location.reload();
+                        },
+                    }
+                );
+            }
+        )
+    window.close();
 }
 
-ensureLoadComplete()
-	.then(() => {
-		document.documentElement.classList.remove("preload");
-	})
-	.then(() => {
-		DEPENDENCY.wait([{ id: "platform" }])
-			.then(() => {
-				return new Promise(
-					resolve => {
-						if (document.querySelector("link#ui-style")) resolve();
+var DEPENDENCY = new function () {
+    var loaded = []
+    var self = Object.assign(
+        new EventTarget,
+        {
+            /**
+             * @param {{id?: string, src: string}} dep 
+             */
+            load: async function (dep) {
+                return new Promise(
+                    resolve => {
+                        s = document.createElement("script"),
+                            s.type = "text/javascript",
+                            s.id = dep.id ? dep.id : null,
+                            s.src = dep.src,
+                            s.onload = () => {
+                                loaded.push(dep);
+                                resolve();
+                            },
+                            document.head.appendChild(s)
+                    }
+                )
+                .then(() =>{
+                    self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
+                })
+            },
+            loaded: () => { return loaded; },
+            /**
+             * @param {[{id?: string, src?: string}]} deps 
+             * @returns {Promise<[{id: string, src: string}]>}
+             */
+            wait: async (deps) => {
+                return new Promise(
+                    resolve => {
+                        function filter() {
+                            return loaded.filter(e => {
+                                for (f of deps) {
+                                    var match = true
+                                    for (k of Object.keys(f)) {
+                                        match &= (f[k] == e[k])
+                                    }
+                                    if (match) {
+                                        return true
+                                    }
+                                }
+                                return false
+                            })
+                        }
+                        function match() {
+                            var matches = filter();
+                            if (matches.length == deps.length) {
+                                listener && listener.cancel()
+                                resolve(matches);
+                            }
+                        }
 
-						var stylesheet = document.createElement("link");
-						document.head.appendChild(stylesheet),
-							stylesheet.id = "ui-style",
-							stylesheet.rel = "stylesheet",
-							stylesheet.href = "ui.css",
-							stylesheet.onload = () => {
-								resolve()
-							};
-					}
-				)
-			})
-			.then(() => {
-				document.querySelector("#title-text-container").innerHTML = platform.locale.getLocalizedText("title_text_element");
-			})
-	});
-
-[
-	{ id: "gapiloader", src: "gapiloader.js" },
-	{ id: "platform", src: "/platform/platform.js" },
-	{ id: "featureloader", src: "/feature/featureloader.js" },
-].forEach(DEPENDENCY.load);
+                        match();
+                        var listener = EventListener().listen(
+                            self,
+                            "depload",
+                            match,
+                        );
+                    }
+                )
+            }
+        },
+    )
+    return self;
+}();

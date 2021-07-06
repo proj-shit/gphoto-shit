@@ -2,20 +2,21 @@
 
 <head>
 	<script type="text/javascript">
-		function notifyOutside(content) {
+		function notify(target, content) {
 			content = Object.assign(
 				{ id: SANDBOX_ID },
 				content,
 			);
-			parent.postMessage(content, '*');
+			target.object.postMessage(content, target.origin);
 		}
 		window.addEventListener("message", (e) => {
+			const source = { object: e.source, origin: e.origin }
 			function returnResult(data, result) {
 				var content = { id: data.id, evalResult: result }
 				try {
-					notifyOutside(content);
+					notify(source, content);
 				} catch (error) {
-					notifyOutside(content = Object.assign(
+					notify(source, content = Object.assign(
 						content,
 						{ evalResult: undefined },
 						(error.code == 25) ? null : { error: [error, data] },
@@ -40,7 +41,7 @@
 					)
 				}
 			} catch (error) {
-				notifyOutside({ id: e.data.id, evalResult: undefined, error: [error, e.data] });
+				notify(source, { id: e.data.id, evalResult: undefined, error: [error, e.data] });
 			}
 		});
 	</script>
