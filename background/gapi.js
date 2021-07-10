@@ -1,8 +1,8 @@
 console.log("background", "gapi.js");
 
 platform.runtime.onMessage.addListener((message, sender, respFunc) => {
-	if (message["gapi"]) {
-		if (m = message["gapi"]["signIn"]) {
+	if (message["CMD"]) {
+		if (m = message["CMD"]["gapi.signIn"]) {
 			signIn(
 				m.account,
 				m.scopes,

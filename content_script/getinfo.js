@@ -1,12 +1,12 @@
 console.log("content_script", "getinfo.js");
 
 platform.runtime.onMessage.addListener((message, sender, respFunc) => {
-	// console.log("content_script", "getinfo.js", "onMessage", message);
-	if (message["getinfo"]) {
-		respFunc(SHIT_INFO[message["getinfo"].get]);
-		// console.log("content_script", "getinfo.js", "onMessage:return", SHIT_INFO[message["getinfo"].get]);
-		
-		return true; // Support async respFunc
+	if (message["CMD"]) {
+		if (m = message["CMD"]["getinfo.get"]) {
+			respFunc(SHIT_INFO[message["CMD"]["getinfo.get"]]);
+
+			return true; // Support async respFunc
+		}
 	}
 });
 

@@ -5,7 +5,8 @@ var UI_GAPI_HELPER = function () {
 	var evalSandbox = new Sandbox();
 
 	return {
-		signIn: function () {
+		signIn: function (interactive) {
+			interactive = (interactive === undefined) ? true : interactive;
 			return DEPENDENCY.wait([{ id: "platform" }])
 				.then(() => Promise.all([
 					// Get scopes
@@ -34,7 +35,7 @@ var UI_GAPI_HELPER = function () {
 						.then(
 							([tab]) => new Promise(
 								resolve => {
-									platform.tabs.sendMessage(tab.id, { getinfo: { get: "_ij" } }, resolve);
+									platform.tabs.sendMessage(tab.id, { "CMD": { "getinfo.get": "_ij" } }, resolve);
 								}
 							)
 						)
@@ -51,20 +52,21 @@ var UI_GAPI_HELPER = function () {
 						(resolve, reject) => {
 							platform.runtime.sendMessage(
 								{
-									"gapi": {
-										"signIn": {
+									"CMD": {
+										"gapi.signIn": {
 											account: account,
 											scopes: scopes,
-											interactive: true,
+											interactive: interactive,
 										}
 									},
 								},
-								([authToken, err]) => {
-									console.log("authToken", authToken, err);
+								([token, err]) => {
+									console.log("authToken", token, err);
 									if (err) {
 										reject(err);
 										return;
 									}
+									authToken = token;
 									resolve();
 								},
 							);
@@ -73,15 +75,24 @@ var UI_GAPI_HELPER = function () {
 				)
 				.then(
 					() => {
-						top.document.documentElement.classList.remove("before-sign-in");
+						platform.runtime.sendMessage(
+							{
+								"EVENT": {
+									"ui_gapi_helper.onSignIn": {}
+								}
+							},
+							{ sendToLocal: true },
+						);
 					},
 					e => {
-						console.log("UI_GAPI_HELPER.signIn", "on rejected", e);
-
-						if (e == "FAIL: Get account from tab") {
-							refreshTab();
-						}
-
+						platform.runtime.sendMessage(
+							{
+								"EVENT": {
+									"ui_gapi_helper.onSignInFailed": { error: e.toString() }
+								}
+							},
+							{ sendToLocal: true },
+						);
 						throw e;
 					}
 				);

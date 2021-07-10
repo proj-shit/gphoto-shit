@@ -130,7 +130,7 @@ var Sandbox = function () {
                 EventListener().listen(
                     sandBoxEvalIfr,
                     "evalreturn:" + msg.id, (e) => {
-                        if (e.error) console.log(e.type, e.error);
+                        if (e.error) console.log("sandbox.js", e.type, e.error);
                         resolve(e.evalResult);
                     }, { once: true }
                 );

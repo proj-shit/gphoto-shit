@@ -44,6 +44,30 @@ ensureLoadComplete()
 
 	});
 
+DEPENDENCY.wait([{ id: "platform" }])
+	.then(() => {
+		platform.runtime.onMessage.addListener(
+			(message) => {
+				if (message["EVENT"]) {
+					if (m = message["EVENT"]["ui_gapi_helper.onSignIn"]) {
+						ensureLoadComplete().
+							then(() => {
+								document.documentElement.classList.remove("before-sign-in");
+							});
+					}
+					if (m = message["EVENT"]["ui_gapi_helper.onSignInFailed"]) {
+						if (m.error == "FAIL: Get account from tab") {
+							ensureLoadComplete().
+								then(() => refreshTab());
+
+						}
+					}
+				}
+			},
+			{ listenLocal: true },
+		);
+	});
+
 [
 	{ id: "ui_gapi_helper", src: "./ui_gapi_helper.js" },
 	{ id: "platform", src: "/common/platform.js" },
