@@ -1,0 +1,12 @@
+[
+    {
+        "name": {
+            "zh_TW": "點題標籤",
+            "en":"Hash Tags"
+        },
+        "id": "hash_tags",
+        "gapi_scope": [
+            "https://www.googleapis.com/auth/photoslibrary.readonly"
+        ]
+    }
+]

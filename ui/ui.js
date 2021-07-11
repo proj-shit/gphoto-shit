@@ -1,10 +1,23 @@
-var Shared = top.Shared || function () {
-    return {
-        gapi: {},
-    }
-}();
+/**** require /common/window_util.js ****/
 
-var Dependency = top.Dependency || function () {
+async function refreshTab() {
+    platform.tabs.query({ active: true, currentWindow: true })
+        .then(
+            ([tab]) => {
+                platform.scripting.executeScript(
+                    {
+                        target: { tabId: tab.id },
+                        function: () => {
+                            window.location.reload();
+                        },
+                    }
+                );
+            }
+        )
+    window.close();
+}
+
+var DEPENDENCY = new function () {
     var loaded = []
     var self = Object.assign(
         new EventTarget,
@@ -16,18 +29,19 @@ var Dependency = top.Dependency || function () {
                 return new Promise(
                     resolve => {
                         s = document.createElement("script"),
-                        s.id = dep.id ? dep.id : null,
-                        s.type = "text/javascript",
-                        s.src = dep.src,
-                        s.onload = () => {
-                            loaded.push(dep);
-                            self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
-                            resolve()
-                        },
-                        document.head.appendChild(s)
+                            s.type = "text/javascript",
+                            s.id = dep.id ? dep.id : null,
+                            s.src = dep.src,
+                            s.onload = () => {
+                                loaded.push(dep);
+                                resolve();
+                            },
+                            document.head.appendChild(s)
                     }
                 )
-                
+                .then(() =>{
+                    self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
+                })
             },
             loaded: () => { return loaded; },
             /**
@@ -54,12 +68,17 @@ var Dependency = top.Dependency || function () {
                         function match() {
                             var matches = filter();
                             if (matches.length == deps.length) {
+                                listener && listener.cancel()
                                 resolve(matches);
                             }
                         }
 
-                        match()
-                        self.addEventListener("depload", match, {once: false})
+                        match();
+                        var listener = EventListener().listen(
+                            self,
+                            "depload",
+                            match,
+                        );
                     }
                 )
             }
@@ -67,8 +86,3 @@ var Dependency = top.Dependency || function () {
     )
     return self;
 }();
-
-[
-    { id: "platformswitch", src: "platform/platformswitch.js" },
-    { id: "featuresloader", src: "features/featuresloader.js" },
-].forEach(Dependency.load);

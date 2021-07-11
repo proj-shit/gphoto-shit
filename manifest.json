@@ -2,7 +2,6 @@
 	"manifest_version": 3,
 	"name": "S.H.I.T. - for Google Photos",
 	"version": "0.0.1",
-	
 	"default_locale": "en",
 	"description": "Extension of stuff for Google Photos, what they Should Have Implemented Themselves",
 	"author": "Project SHIT",
@@ -13,8 +12,46 @@
 		"48": "resources/icons/48.png",
 		"128": "resources/icons/128.png"
 	},
-
+	"background": {
+		"service_worker": "background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://photos.google.com/*"
+			],
+			"run_at": "document_end",
+			"js": [
+				"common/platform.js",
+				"content_script/getinfo.js"
+			]
+		}
+	],
+	"permissions": [
+		"tabs",
+		"webRequest",
+		"scripting",
+		"identity.email",
+		"identity"
+	],
+	"host_permissions": [
+		"*://photos.google.com/*"
+	],
 	"action": {
-		"default_popup": "popup.html"
-	}
+		"matches": [
+			"*://photos.google.com/*"
+		],
+		"default_popup": "ui/popup.html"
+	},
+	"oauth2": {
+        "client_id": "790646059739-5i693oc1r1q5eg2kqk371ram1gseg4nu.apps.googleusercontent.com",
+		"scopes": []
+    },
+	"sandbox": {
+		"pages": [
+			"/sandbox/eval.html"
+		  ]
+	},
+	"key": "igmdejkebcechpclfjklgnfbpkbgiljl"
 }

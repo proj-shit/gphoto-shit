@@ -1,1 +1,22 @@
-{}
+{
+	"Signing_in" : {
+		"message": "Signing in"
+	},
+	"Please_continue_authorization_on_the_popup_window_triggered_by_your_browser": {
+		"message": "Please continue authorization on the popup window triggered by your browser"
+	},
+	"Ready" : {
+		"message": "Ready"
+	},
+	"Choose_what_you_what_from_the_left_menu" : {
+		"message": "← Choose what you want from the left menu"
+	},
+
+	"title_text_element" : {
+		"message": "<span class=\"title-text title-forapp-text\"><ruby>&nbsp;<rt class=\"transform-origin scale\" style=\"--transform-origin-arg: bottom right; --scale-arg: 0.9;\">stuff<\/rt><\/ruby>for Google Photos<\/span><span class=\"title-text title-myapp-text\"><ruby>&nbsp;<rt class=\"transform-origin scale\" style=\"--transform-origin-arg: bottom right; --scale-arg: 0.9;\">what they<\/rt><\/ruby>Should Have Implemented Themselves<\/span>"
+	},
+	"active_locale" : {
+		"message": "en",
+		"description": "Active Language Code"
+	}
+}

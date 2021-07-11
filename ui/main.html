@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="dialog.css">
+	<script type="text/javascript" src="/common/window_util.js"></script>
+	<script type="text/javascript" src="ui.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+
+	<style type="text/css">
+		.full-page {
+			display: none;
+			position: absolute;
+			margin: 0px;
+			bottom: 0px;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+		}
+
+		.button {
+			cursor: pointer;
+		}
+
+		.button:hover {
+			filter: brightness(1.2);
+		}
+
+		.button:active {
+			filter: brightness(0.8);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-waiting-signin" class="full-page">
+		<div id="dialog-container">
+			<div>
+				<div id="dialog-icon" src="/resources/login.svg"></div>
+				<div id="dialog-title"></div>
+				<div id="dialog-message"></div>
+			</div>
+		</div>
+	</div>
+	<div id="page-signin-google" class="full-page">
+		<div id="dialog-container">
+			<div>
+				<img src="/resources/icons/128.png" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 12px;">
+				<img id="signin-button" class="button" style="width: 191px; height: 46px;"
+				src="/resources/btn_google_signin_dark_normal_web@2x.png">
+			</div>
+		</div>
+	</div>
+	<div id="page-ready" class="full-page">
+		<div id="dialog-container">
+			<div>
+				<div id="dialog-icon" src="/resources/done.svg"></div>
+				<div id="dialog-title"></div>
+				<div id="dialog-message"></div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

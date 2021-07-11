@@ -1,0 +1,52 @@
+<html>
+
+<head>
+	<script type="text/javascript">
+		function notify(target, content) {
+			content = Object.assign(
+				{ id: SANDBOX_ID },
+				content,
+			);
+			target.object.postMessage(content, target.origin);
+		}
+		window.addEventListener("message", (e) => {
+			const source = { object: e.source, origin: e.origin }
+			function returnResult(data, result) {
+				var content = { id: data.id, evalResult: result }
+				try {
+					notify(source, content);
+				} catch (error) {
+					notify(source, content = Object.assign(
+						content,
+						{ evalResult: undefined },
+						(error.code == 25) ? null : { error: [error, data] },
+					));
+				}
+			}
+
+			try {
+				if (e.data.eval) {
+					returnResult(e.data, eval(e.data.eval));
+				}
+				if (e.data.evalSrc) {
+					fetch(e.data.evalSrc)
+						.then(r => r.text())
+						.then(eval)
+						.then(r => returnResult(e.data, r));
+				}
+				if (e.data.invoke) {
+					returnResult(
+						e.data,
+						eval(e.data.invoke.target)[e.data.invoke.func](...e.data.invoke.args.map(e => eval(e)))
+					)
+				}
+			} catch (error) {
+				notify(source, { id: e.data.id, evalResult: undefined, error: [error, e.data] });
+			}
+		});
+	</script>
+	<script id="temp_playground">
+	</script>
+</head>
+
+</html>

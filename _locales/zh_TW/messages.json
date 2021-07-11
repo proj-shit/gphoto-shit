@@ -1,2 +1,22 @@
 {
+	"Signing_in" : {
+		"message": "正在登入中"
+	},
+	"Please_continue_authorization_on_the_popup_window_triggered_by_your_browser": {
+		"message": "請在瀏覽器生成的彈出視窗繼續認證程序"
+	},
+	"Ready" : {
+		"message": "準備就緒"
+	},
+	"Choose_what_you_what_from_the_left_menu" : {
+		"message": "← 在左方選單找你想做的事吧"
+	},
+
+	"title_text_element" : {
+		"message": "<span class=\"title-text title-forapp-text\">for Google相片<\/span><span class=\"title-text title-myapp-text\" style=\"margin-left: 5px\"><ruby><span style=\"font-weight: bold;\">那些他們早該自己搞定的功能<\/span><rt class=\"scale\" style=\"--scale-arg: .88, .8;\">Should Have Implemented Themselves\r\n\t\t<\/rt><\/ruby><\/span>"
+	},
+	"active_locale" : {
+		"message": "zh_TW",
+		"description": "Active Language Code"
+	}
 }
