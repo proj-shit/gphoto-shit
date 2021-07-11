@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "S.H.I.T. - for Google Photos",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"default_locale": "en",
 	"description": "Extension of stuff for Google Photos, what they Should Have Implemented Themselves",
 	"author": "Project SHIT",
