@@ -1,4 +1,4 @@
-var FEATURE = top.FEATURE || function () {
+top.FEATURE = top.FEATURE || function () {
     var self = Object.assign(
         new EventTarget,
         {
@@ -17,9 +17,9 @@ var FEATURE = top.FEATURE || function () {
         await async function () {
             return new Promise(
                 resolve => {
-                    document.querySelector("#feature-menu-style") || (
-                        stylesheet = document.createElement("link"),
-                        document.head.appendChild(stylesheet),
+                    top.document.querySelector("#feature-menu-style") || (
+                        stylesheet = top.document.createElement("link"),
+                        top.document.head.appendChild(stylesheet),
                         stylesheet.id = "feature-menu-style",
                         stylesheet.rel = "stylesheet",
                         stylesheet.href = "/feature/feature-menu.css",
@@ -31,27 +31,35 @@ var FEATURE = top.FEATURE || function () {
             )
         }()
 
-        var menu = document.querySelector("#feature-menu");
+        var menu = top.document.querySelector("#feature-menu");
         for (feat of FEATURE.list) {
-            addFeatureToMenu(menu, feat)
+            await fetch(`/feature/${feat.id}/_locales/${platform.locale.getActiveLocale()}/messages.json`)
+                .then(r => r.json())
+                .then(j => j["_NAME_"]["message"])
+                .catch(() => feat.id)
+                .then(name => { 
+                    addFeatureToMenu(menu, Object.assign({ name: name }, feat));
+                });
         }
+
+        self.dispatchEvent(new Event("menuready"))
 
         function onFeatureMenuItemClick(e) {
             var item = e.currentTarget;
 
-            (p = item.parentNode.querySelector(":scope > [active]")) && (p.removeAttribute("active"));
+            (p = menu.querySelector("[active]")) && (p.removeAttribute("active"));
             item.setAttribute("active", "");
         }
 
-        function addFeatureToMenu(menuNode, feat) {
-            var a = document.createElement("a")
+        async function addFeatureToMenu(menuNode, feat) {
+            var a = top.document.createElement("a")
             menuNode.appendChild(a),
                 a.classList.add("feature-menu-item-a"),
                 a.href = `/feature/${feat.id}/index.html`,
                 a.target = "feature-iframe",
                 a.onclick = onFeatureMenuItemClick;
 
-            var div = document.createElement("div");
+            var div = top.document.createElement("div");
             a.appendChild(div),
                 div.classList.add("feature-menu-item-layout")
 
@@ -68,17 +76,15 @@ var FEATURE = top.FEATURE || function () {
                     }
                 );
 
-            var textLayoutDiv = document.createElement("div");
+            var textLayoutDiv = top.document.createElement("div");
             div.appendChild(textLayoutDiv),
                 textLayoutDiv.style.display = "inline"
 
-            var textDiv = document.createElement("div");
+            var textDiv = top.document.createElement("div");
             textLayoutDiv.appendChild(textDiv),
                 textDiv.classList.add("feature-menu-item-text"),
-                textDiv.innerHTML = feat.name[platform.locale.getActiveLocale()];
+                textDiv.innerHTML = feat.name;
         }
-
-        self.dispatchEvent(new Event("menuready"))
     }()
 
     return self;
