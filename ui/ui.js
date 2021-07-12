@@ -53,9 +53,9 @@ var DEPENDENCY = new function () {
                     resolve => {
                         function filter() {
                             return loaded.filter(e => {
-                                for (f of deps) {
+                                for (const f of deps) {
                                     var match = true
-                                    for (k of Object.keys(f)) {
+                                    for (const k of Object.keys(f)) {
                                         match &= (f[k] == e[k])
                                     }
                                     if (match) {

@@ -109,7 +109,7 @@ var Sandbox = function () {
             return propertyPath;
         }
         if (Array.isArray(propertyPath)) {
-            for (p of propertyPath) {
+            for (const p of propertyPath) {
                 if (!ret) {
                     ret = p.toString();
                 } else {

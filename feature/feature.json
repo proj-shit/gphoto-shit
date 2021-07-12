@@ -4,5 +4,9 @@
         "gapi_scope": [
             "https://www.googleapis.com/auth/photoslibrary.readonly"
         ]
+    },
+    {
+        "id": "donate",
+        "gapi_scope": []
     }
 ]

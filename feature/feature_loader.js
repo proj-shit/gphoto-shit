@@ -32,14 +32,12 @@ top.FEATURE = top.FEATURE || function () {
         }()
 
         var menu = top.document.querySelector("#feature-menu");
-        for (feat of FEATURE.list) {
+        for (const feat of FEATURE.list) {
             await fetch(`/feature/${feat.id}/_locales/${platform.locale.getActiveLocale()}/messages.json`)
                 .then(r => r.json())
                 .then(j => j["_NAME_"]["message"])
                 .catch(() => feat.id)
-                .then(name => { 
-                    addFeatureToMenu(menu, Object.assign({ name: name }, feat));
-                });
+                .then(name => addFeatureToMenu(menu, Object.assign({ name: name }, feat)));
         }
 
         self.dispatchEvent(new Event("menuready"))
@@ -63,19 +61,6 @@ top.FEATURE = top.FEATURE || function () {
             a.appendChild(div),
                 div.classList.add("feature-menu-item-layout")
 
-            fetch(platform.runtime.getURL(`/feature/${feat.id}/icon.svg`))
-                .then(r => r.text())
-                .then(t => {
-                    div.innerHTML = t + div.innerHTML;
-                    return div.querySelector("svg");
-                })
-                .then(
-                    svg => {
-                        svg.classList.add("feature-menu-item-icon"),
-                            svg.style.display = "inline";
-                    }
-                );
-
             var textLayoutDiv = top.document.createElement("div");
             div.appendChild(textLayoutDiv),
                 textLayoutDiv.style.display = "inline"
@@ -84,6 +69,19 @@ top.FEATURE = top.FEATURE || function () {
             textLayoutDiv.appendChild(textDiv),
                 textDiv.classList.add("feature-menu-item-text"),
                 textDiv.innerHTML = feat.name;
+
+            await fetch(platform.runtime.getURL(`/feature/${feat.id}/icon.svg`))
+                .then(r => r.text())
+                .then(t => {
+                    div.innerHTML = t + div.innerHTML;
+                    return div.querySelector("svg");
+                })
+                .then(
+                    svg => {
+                        svg.classList.add("feature-menu-item-icon");
+                        svg.style.display = "inline";
+                    }
+                );
         }
     }()
 

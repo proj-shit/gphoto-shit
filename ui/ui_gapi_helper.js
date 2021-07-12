@@ -24,7 +24,7 @@ var UI_GAPI_HELPER = function () {
 							}
 						))
 						.then((list) => {
-							for (feat of list) {
+							for (const feat of list) {
 								scopes.push(...feat.gapi_scope);
 							}
 							return (scopes = [...new Set(scopes)]);
