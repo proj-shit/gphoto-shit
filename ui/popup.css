@@ -9,6 +9,7 @@
 	left: 0px;
 	border-bottom: 1px solid #dadce0;
 	user-select: none;
+	-webkit-user-drag: none;
 	z-index: 10000;
 }
 

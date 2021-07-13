@@ -3,7 +3,7 @@ div#dialog-container {
 	color: #3c4043;
 	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
 	text-size-adjust: 100%;
-	-webkit-user-select: none;
+	user-select: none;
 	-webkit-tap-highlight-color: transparent;
 	bottom: 0;
 	display: flex;
@@ -25,7 +25,7 @@ div#dialog-container>div {
 	color: #3c4043;
 	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
 	text-size-adjust: 100%;
-	-webkit-user-select: none;
+	user-select: none;
 	-webkit-tap-highlight-color: transparent;
 	text-align: center;
 	width: 100%;
@@ -36,7 +36,8 @@ div#dialog-container>div>div#dialog-icon {
 	fill: #3c4043;
 	font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 	text-size-adjust: 100%;
-	-webkit-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
 	text-align: center;
 	-webkit-tap-highlight-color: transparent;
 	height: 200px;
@@ -52,7 +53,7 @@ div#dialog-icon>svg{
 div#dialog-container>div>div#dialog-title {
 	-webkit-font-smoothing: antialiased;
 	text-size-adjust: 100%;
-	-webkit-user-select: none;
+	user-select: none;
 	text-align: center;
 	-webkit-tap-highlight-color: transparent;
 	color: #202124;
@@ -67,7 +68,7 @@ div#dialog-container>div>div#dialog-title {
 div#dialog-container>div>div#dialog-message {
 	-webkit-font-smoothing: antialiased;
 	text-size-adjust: 100%;
-	-webkit-user-select: none;
+	user-select: none;
 	text-align: center;
 	-webkit-tap-highlight-color: transparent;
 	color: #3c4043;
