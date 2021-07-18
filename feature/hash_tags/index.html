@@ -1,7 +1,31 @@
 <html>
+
 <head>
+    <meta charset="utf-8" />
+    <script src="/common/window_util.js"></script>
+    <script src="index.js"></script>
+
+    <link href="/ui/material-components-web.min.css" rel="stylesheet">
+    <script src="/ui/material-components-web.min.js"></script>
+    <style>
+        .shit-mdc-button {
+            --mdc-theme-primary: #1a73e8;
+            --mdc-ripple-color: #202124;
+            font-family: "Google Sans", Roboto, Arial, sans-serif;
+            font-size: .875rem;
+            letter-spacing: .0107142857em;
+            font-weight: 500;
+            text-transform: none;
+        }
+    </style>
 </head>
+
 <body>
-    
+
+    <button class="mdc-button mdc-button--raised shit-mdc-button">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">Search</span>
+    </button>
 </body>
+
 </html>

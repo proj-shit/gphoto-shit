@@ -3,8 +3,20 @@ top.FEATURE = top.FEATURE || function () {
         new EventTarget,
         {
             list: null,
+            locale: {
+                getLocalizedText: function (key) {
+                    if (activeLocale == null) throw "activeLocale not ready";
+                    return (activeLocale[key], activeLocale[key].text) || key;
+                },
+            }
         }
     )
+
+    var activeLocale = null;
+    async function fetchLocaleTextObject(featid) {
+        return fetch(`/feature/${featid}/_locales/${platform.locale.getActiveLocale()}/text.json`)
+            .then(r => r.json());
+    }
 
     _ = async function () {
         await DEPENDENCY.wait([{ id: "platform" }])
@@ -33,9 +45,8 @@ top.FEATURE = top.FEATURE || function () {
 
         var menu = top.document.querySelector("#feature-menu");
         for (const feat of FEATURE.list) {
-            await fetch(`/feature/${feat.id}/_locales/${platform.locale.getActiveLocale()}/messages.json`)
-                .then(r => r.json())
-                .then(j => j["_NAME_"]["message"])
+            await fetchLocaleTextObject(feat.id)
+                .then(j => j["_FEAT_NAME_"]["text"])
                 .catch(() => feat.id)
                 .then(name => addFeatureToMenu(menu, Object.assign({ name: name }, feat)));
         }
@@ -44,17 +55,32 @@ top.FEATURE = top.FEATURE || function () {
 
         function onFeatureMenuItemClick(e) {
             var item = e.currentTarget;
+            var prev = menu.querySelector("[active]");
+            if (item == prev) return;
 
-            (p = menu.querySelector("[active]")) && (p.removeAttribute("active"));
-            item.setAttribute("active", "");
+            var ifr = document.querySelector("#feature-iframe")
+            activeLocale = null;
+
+            Promise.all([
+                async function () {
+                    prev && prev.removeAttribute("active");
+                    item.setAttribute("active", "");
+                }(),
+                fetchLocaleTextObject(item.id)
+                    .then(j => { activeLocale = j; }),
+            ])
+                .then(
+                    ifr.src = `/feature/${item.id}/index.html`
+                )
+
         }
 
         async function addFeatureToMenu(menuNode, feat) {
             var a = top.document.createElement("a")
             menuNode.appendChild(a),
                 a.classList.add("feature-menu-item-a"),
-                a.href = `/feature/${feat.id}/index.html`,
                 a.target = "feature-iframe",
+                a.id = feat.id,
                 a.onclick = onFeatureMenuItemClick;
 
             var div = top.document.createElement("div");
@@ -87,3 +113,4 @@ top.FEATURE = top.FEATURE || function () {
 
     return self;
 }();
+
