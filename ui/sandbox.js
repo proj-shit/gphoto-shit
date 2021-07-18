@@ -79,7 +79,7 @@ var Sandbox = function () {
         return new Promise(
             async (resolve) => {
                 if (!sandBoxEvalIfr.parentNode) {
-                    await window.ensureLoadComplete().then(() => {
+                    await shit.ensureLoadComplete().then(() => {
                         document.body.appendChild(sandBoxEvalIfr);
                     });
                 }

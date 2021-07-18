@@ -7,25 +7,33 @@
 
     <link href="/ui/material-components-web.min.css" rel="stylesheet">
     <script src="/ui/material-components-web.min.js"></script>
-    <style>
-        .shit-mdc-button {
-            --mdc-theme-primary: #1a73e8;
-            --mdc-ripple-color: #202124;
-            font-family: "Google Sans", Roboto, Arial, sans-serif;
-            font-size: .875rem;
-            letter-spacing: .0107142857em;
-            font-weight: 500;
-            text-transform: none;
-        }
-    </style>
+    <link href="/ui/shit-mdc.css" rel="stylesheet">
 </head>
 
 <body>
+    <div style="display: flex; margin: 0px; flex-direction: column; align-items: center;">
+        <div style="display: inline; width: 70%;">
+            <label id="text-search" class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label mdc-text-field--with-trailing-icon" style="width: 100%;" data-mdc-auto-init="MDCTextField">
+                <span class="mdc-text-field__ripple"></span>
+                <span class="mdc-text-field__icon--leading" tabindex="0">
+                    <span shit-insert-src="/resources/search.svg"></span>
+                </span>
+                <span class="mdc-text-field__affix mdc-text-field__affix--prefix">#</span>
+                <input class="mdc-text-field__input" type="text" id="text-search-input" aria-labelledby="text-search-label" pattern="[^\s#]+" shit-localize="placeholder" placeholder="search-your-hash-tag-here">
+                <button class="mdc-icon-button mdc-text-field__icon--trailing" id="text-search-clear-button" tabindex="0">
+                    <span shit-insert-src="/resources/clear.svg"></span>
+                </button>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div style="width: 80%; text-align: right; margin-top: 8px;">
+            <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label" shit-localize="innerText">Search</span>
+            </button>
+        </div>
+    </div>
 
-    <button class="mdc-button mdc-button--raised shit-mdc-button">
-        <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Search</span>
-    </button>
 </body>
 
 </html>

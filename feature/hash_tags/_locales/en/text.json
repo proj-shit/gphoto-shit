@@ -2,6 +2,10 @@
 	"Search": {
 		"text": "Search"
 	},
+	"search-your-hash-tag-here": {
+		"text": "search-your-hash-tag-here"
+	},
+	
 	"_FEAT_NAME_": {
 		"text": "Hash Tags"
 	}

@@ -1,4 +1,4 @@
-ensureLoadComplete()
+shit.ensureLoadComplete()
 	.then(() => {
 		document.documentElement.classList.remove("before-load");
 	})
@@ -50,14 +50,14 @@ DEPENDENCY.wait([{ id: "platform" }])
 			(message) => {
 				if (message["EVENT"]) {
 					if (m = message["EVENT"]["ui_gapi_helper.onSignIn"]) {
-						ensureLoadComplete().
+						shit.ensureLoadComplete().
 							then(() => {
 								document.documentElement.classList.remove("before-sign-in");
 							});
 					}
 					if (m = message["EVENT"]["ui_gapi_helper.onSignInFailed"]) {
 						if (m.error == "FAIL: Get account from tab") {
-							ensureLoadComplete().
+							shit.ensureLoadComplete().
 								then(() => refreshTab());
 
 						}

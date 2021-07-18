@@ -1,0 +1,35 @@
+body {
+	--mdc-theme-primary: #1a73e8;
+	--mdc-ripple-color: #202124;
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label.shit-mdc-floating-label {
+	word-wrap: none;
+	color: #1a73e8;
+}
+
+.mdc-text-field__icon--leading, .mdc-text-field__icon--trailing {
+	align-self: center;
+}
+
+.mdc-text-field__input:placeholder-shown~.mdc-text-field__icon--trailing {
+	display: none;
+}
+
+.mdc-text-field__icon--leading {
+	margin-left: 0px;
+}
+
+.mdc-text-field__icon--leading svg {
+	width: 24px;
+	height: 24px;
+	fill: #5f6368;
+}
+
+.mdc-button {
+	font-family: "Google Sans", Roboto, Arial, sans-serif;
+	font-size: .875rem;
+	letter-spacing: .0107142857em;
+	font-weight: 500;
+	text-transform: none;
+}

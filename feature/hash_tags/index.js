@@ -1,5 +1,25 @@
-ensureLoadComplete()
+top.shit.ensureLoadComplete()
+	// SHIT Replacements
+	.then(() => Promise.all([
+		async function () {
+			top.shit.execAllLocalize();
+		}(),
+		top.shit.execAllInsertSrc(),
+	]))
+	// MDC Init
 	.then(() => {
-		[...document.querySelectorAll('.mdc-button')].forEach(e => { mdc.ripple.MDCRipple.attachTo(e); });
-		[...document.querySelectorAll('.mdc-button__label')].forEach(e => { e.innerHTML = top.FEATURE.locale.getLocalizedText(e.innerHTML); });
+		mdc.autoInit();
+	})
+
+	// UI Setup - Text search
+	.then(() => {
+		var t = document.querySelector("#text-search").MDCTextField;
+		t.foundation.setValidateOnValueChange(true);
+		t.foundation.adapter.registerInputInteractionHandler("input", (e) => {
+			t.foundation.setValue(e.currentTarget.value);
+			e.currentTarget.reportValidity();
+		});
+		document.querySelector("#text-search-clear-button").addEventListener("click", () => {
+			t.foundation.setValue("");
+		});
 	});

@@ -2,6 +2,10 @@
 	"Search": {
 		"text": "搜尋"
 	},
+	"search-your-hash-tag-here": {
+		"text": "搜尋-你的-點題標籤"
+	},
+
 	"_FEAT_NAME_": {
 		"text": "點題標籤"
 	}

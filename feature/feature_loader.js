@@ -6,7 +6,7 @@ top.FEATURE = top.FEATURE || function () {
             locale: {
                 getLocalizedText: function (key) {
                     if (activeLocale == null) throw "activeLocale not ready";
-                    return (activeLocale[key], activeLocale[key].text) || key;
+                    return (activeLocale[key] ? activeLocale[key].text : key);
                 },
             }
         }

@@ -1,8 +1,8 @@
 var STATE = {}
 
 STATE["auto-signin"] = async function () {
-	var page = await ensureLoadComplete().then(() => document.querySelector("#page-waiting-signin"));
-	return ensureLoadComplete()
+	var page = await top.shit.ensureLoadComplete().then(() => document.querySelector("#page-waiting-signin"));
+	return top.shit.ensureLoadComplete()
 		.then(() => { document.querySelectorAll(".full-page").forEach(p => p.style.display = "none"); })
 		.then(async function () {
 			page.style.display = "block";
@@ -19,10 +19,10 @@ STATE["auto-signin"] = async function () {
 };
 
 STATE["signin-google"] = async function () {
-	var signInPage = await ensureLoadComplete().then(() => document.querySelector("#page-signin-google"));
-	var waitingPage = await ensureLoadComplete().then(() => document.querySelector("#page-waiting-signin"));
+	var signInPage = await top.shit.ensureLoadComplete().then(() => document.querySelector("#page-signin-google"));
+	var waitingPage = await top.shit.ensureLoadComplete().then(() => document.querySelector("#page-waiting-signin"));
 
-	return ensureLoadComplete()
+	return top.shit.ensureLoadComplete()
 		.then(() => { document.querySelectorAll(".full-page").forEach(p => p.style.display = "none"); })
 		.then(() => {
 			signInPage.style.display = "block";
@@ -40,8 +40,8 @@ STATE["signin-google"] = async function () {
 };
 
 STATE["ready"] = async function () {
-	var page = await ensureLoadComplete().then(() => document.querySelector("#page-ready"));
-	return ensureLoadComplete()
+	var page = await top.shit.ensureLoadComplete().then(() => document.querySelector("#page-ready"));
+	return top.shit.ensureLoadComplete()
 		.then(() => { document.querySelectorAll(".full-page").forEach(p => p.style.display = "none"); })
 		.then(() => {
 			page.style.display = "block";
@@ -50,13 +50,13 @@ STATE["ready"] = async function () {
 
 _ = function () {
 	// #page-waiting-signin"
-	ensureLoadComplete()
+	top.shit.ensureLoadComplete()
 		.then(top.DEPENDENCY.wait([{ id: "platform" }]))
 		.then(() => {
 			var page = document.querySelector("#page-waiting-signin");
 
 			var icon = page.querySelector("#dialog-icon");
-			fetch(top.platform.runtime.getURL(icon.getAttribute("src"))).then(r => r.text()).then(t => { icon.innerHTML = t; });
+			top.shit.execInsertSrc(icon);
 			icon.style.fill = "#3c4043";
 			icon.style.opacity = 0.5;
 			FrameUpdate((self, params) => {
@@ -80,13 +80,13 @@ _ = function () {
 		});
 
 		// #page-ready"
-		ensureLoadComplete()
+		top.shit.ensureLoadComplete()
 			.then(top.DEPENDENCY.wait([{ id: "platform" }]))
 			.then(() => {
 				var page = document.querySelector("#page-ready");
 	
 				var icon = page.querySelector("#dialog-icon");
-				fetch(top.platform.runtime.getURL(icon.getAttribute("src"))).then(r => r.text()).then(t => { icon.innerHTML = t; });
+				top.shit.execInsertSrc(icon);
 				icon.style.fill = "#33a952";
 				icon.style.opacity = 0.5;
 	
