@@ -1,10 +1,10 @@
-top.shit.ensureLoadComplete()
+shit.ensureLoadComplete()
 	// SHIT Replacements
 	.then(() => Promise.all([
 		async function () {
-			top.shit.execAllLocalize();
+			shit.execAllLocalize();
 		}(),
-		top.shit.execAllInsertSrc(),
+		shit.execAllInsertSrc(),
 	]))
 	// MDC Init
 	.then(() => {
