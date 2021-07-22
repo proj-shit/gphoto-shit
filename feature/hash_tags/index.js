@@ -1,3 +1,5 @@
+import { shit } from '/common/window_utils.js';
+
 shit.ensureLoadComplete()
 	// SHIT Replacements
 	.then(() => Promise.all([

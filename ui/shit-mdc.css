@@ -33,3 +33,16 @@ body {
 	font-weight: 500;
 	text-transform: none;
 }
+
+.mdc-list-group__subheader {
+	color: #80868b;
+	margin: 12px 0;
+	padding-bottom: 0;
+	padding-left: 24px;
+	letter-spacing: .07272727em;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: .6875rem;
+	font-weight: 500;
+	line-height: 1rem;
+	text-transform: uppercase;
+}
