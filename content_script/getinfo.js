@@ -10,7 +10,5 @@ platform.runtime.onMessage.addListener((message, sender, respFunc) => {
 	}
 });
 
-
-
 var SHIT_INFO = {}
 SHIT_INFO["_ij"] = document.querySelector("script#_ij").innerHTML;

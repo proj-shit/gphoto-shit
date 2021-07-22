@@ -1,4 +1,7 @@
-var UI_GAPI_HELPER = function () {
+import { Sandbox } from "./sandbox.js";
+import platform from '/common/platform.js';
+
+top.UI_GAPI_HELPER = top.UI_GAPI_HELPER || function () {
 	var authToken = null;
 	var scopes = [];
 
@@ -7,8 +10,7 @@ var UI_GAPI_HELPER = function () {
 	return {
 		signIn: function (interactive) {
 			interactive = (interactive === undefined) ? true : interactive;
-			return DEPENDENCY.wait([{ id: "platform" }])
-				.then(() => Promise.all([
+			return Promise.all([
 					// Get scopes
 					DEPENDENCY.wait([{ id: "feature_loader" }])
 						.then(() => new Promise(
@@ -46,7 +48,7 @@ var UI_GAPI_HELPER = function () {
 							id: ij[1][0],
 						}))
 						.catch(() => { throw "FAIL: Get account from tab"; })
-				]))
+				])
 				.then(([scopes, account]) =>
 					new Promise(
 						(resolve, reject) => {
