@@ -2,7 +2,7 @@ import { EventListener } from '/common/utils.js'
 import { shit } from '/common/window_utils.js';
 import platform from '/common/platform.js'
 import './ui.js';
-import {ui} from './ui.js';
+import { ui } from './ui.js';
 
 platform.runtime.onMessage.addListener(
 	(message) => {
@@ -76,25 +76,25 @@ top.DEPENDENCY.wait([{ id: "feature_loader" }])
 				top.FEATURE,
 				"listready",
 				() => {
+					var menu = top.document.querySelector("#feature-menu");
 					var _ = async function () {
 						return new Promise(
 							resolve => {
 								top.document.querySelector("#feature-menu-style") || function () {
 									var stylesheet = top.document.createElement("link");
-										top.document.head.appendChild(stylesheet);
-										stylesheet.id = "feature-menu-style";
-										stylesheet.rel = "stylesheet";
-										stylesheet.href = "/ui/feature-menu.css";
-										stylesheet.onload = () => {
-											resolve();
-										};
+									top.document.head.appendChild(stylesheet);
+									stylesheet.id = "feature-menu-style";
+									stylesheet.rel = "stylesheet";
+									stylesheet.href = "/ui/feature-menu.css";
+									stylesheet.onload = () => {
+										resolve();
+									};
 								}();
 							}
 						)
 					}()
 						.then(
 							() => {
-								var menu = top.document.querySelector("#feature-menu");
 								for (const feat of FEATURE.list) {
 									addFeatureToMenu(menu, Object.assign({ name: FEATURE.locale.getName(feat.id) }, feat));
 								}
@@ -107,18 +107,15 @@ top.DEPENDENCY.wait([{ id: "feature_loader" }])
 						if (item == prev) return;
 
 						var ifr = document.querySelector("#feature-iframe")
-						activeLocale = null;
 
-						Promise.all([
-							async function () {
-								prev && prev.removeAttribute("active");
-								item.setAttribute("active", "");
-							}(),
-							FEATURE.setActive(item.id)
-						])
-							.then(
-								ifr.src = `/feature/${item.id}/index.html`
-							)
+						// Exclusive selection
+						prev && prev.removeAttribute("active");
+						item.setAttribute("active", "");
+
+						// Update feature status
+						FEATURE.setActive(item.id);
+
+						ifr.src = `/feature/${item.id}/index.html`;
 
 					}
 
