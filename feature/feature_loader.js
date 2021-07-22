@@ -30,8 +30,6 @@ top.FEATURE = top.FEATURE || function () {
     }
 
     var _ = async function () {
-        await top.DEPENDENCY.wait([{ id: "platform" }])
-
         // Load enabled features
         self.list = await fetch(platform.runtime.getURL("/feature/feature.json"))
             .then(r => r.json());

@@ -41,6 +41,7 @@ var platform = function () {
                 const orig_func = self.runtime.sendMessage.bind(self.runtime);
                 return function (...args) {
                     try {
+                        var extensionId, message, options, responseCallback;
                         [extensionId, message, options, responseCallback] = function (args) {
                             if (typeof args[0] != "string") args.unshift(undefined);
                             if (typeof args[2] != "object") args.splice(2, 0, undefined);

@@ -1,22 +1,24 @@
 import { EventListener } from '/common/utils.js'
 import platform from '/common/platform.js'
 
-export async function refreshTab() {
-    platform.tabs.query({ active: true, currentWindow: true })
-        .then(
-            ([tab]) => {
-                platform.scripting.executeScript(
-                    {
-                        target: { tabId: tab.id },
-                        function: () => {
-                            window.location.reload();
-                        },
-                    }
-                );
-            }
-        )
-    window.close();
-}
+export var ui = {
+    refreshTab: async function () {
+        platform.tabs.query({ active: true, currentWindow: true })
+            .then(
+                ([tab]) => {
+                    platform.scripting.executeScript(
+                        {
+                            target: { tabId: tab.id },
+                            function: () => {
+                                window.location.reload();
+                            },
+                        }
+                    );
+                }
+            );
+        window.close();
+    }
+};
 
 top.DEPENDENCY = top.DEPENDENCY || function () {
     var loaded = []

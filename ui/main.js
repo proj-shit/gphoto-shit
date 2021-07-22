@@ -55,7 +55,6 @@ STATE["ready"] = async function () {
 var _ = function () {
 	// #page-waiting-signin"
 	shit.ensureLoadComplete()
-		.then(top.DEPENDENCY.wait([{ id: "platform" }]))
 		.then(() => {
 			var page = document.querySelector("#page-waiting-signin");
 
@@ -85,7 +84,6 @@ var _ = function () {
 
 		// #page-ready"
 		shit.ensureLoadComplete()
-			.then(top.DEPENDENCY.wait([{ id: "platform" }]))
 			.then(() => {
 				var page = document.querySelector("#page-ready");
 	

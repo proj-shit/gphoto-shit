@@ -16,3 +16,8 @@ export var EventListener = function () {
     var _target, _eventName, _func, _options;
     return self;
 };
+
+RegExp.escapeInput = (s) => {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+export var WildcardURLRegExp = function (w) { return RegExp(RegExp.escapeInput(w).replace(/\*/g, ".*?")); };

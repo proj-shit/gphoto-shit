@@ -1,77 +1,73 @@
-import {EventListener} from '/common/utils.js'
-import {shit} from '/common/window_utils.js';
+import { EventListener } from '/common/utils.js'
+import { shit } from '/common/window_utils.js';
 import platform from '/common/platform.js'
 import './ui.js';
+import {ui} from './ui.js';
+
+platform.runtime.onMessage.addListener(
+	(message) => {
+		if (message["EVENT"]) {
+			var m;
+			if (m = message["EVENT"]["ui_gapi_helper.onSignIn"]) {
+				shit.ensureLoadComplete().
+					then(() => {
+						document.documentElement.classList.remove("before-sign-in");
+					});
+			}
+			if (m = message["EVENT"]["ui_gapi_helper.onSignInFailed"]) {
+				if (m.error == "FAIL: Get account from tab") {
+					shit.ensureLoadComplete().
+						then(() => ui.refreshTab());
+				}
+			}
+		}
+	},
+	{ listenLocal: true },
+);
 
 shit.ensureLoadComplete()
 	.then(() => {
 		document.documentElement.classList.remove("before-load");
 	})
-	.then(() => {
-		top.DEPENDENCY.wait([{ id: "platform" }])
-			.then(Promise.all([
-				// Close popup if refresh
-				async function () {
-					platform.tabs.onUpdated.addListener(
-						(tabId, changeInfo) => {
-							platform.tabs.query({ active: true, currentWindow: true })
-								.then(([tab]) => {
-									if (tab.id != tabId) return;
+	.then(() =>
+		Promise.all([
+			// Close popup if refresh
+			async function () {
+				platform.tabs.onUpdated.addListener(
+					(tabId, changeInfo) => {
+						platform.tabs.query({ active: true, currentWindow: true })
+							.then(([tab]) => {
+								if (tab.id != tabId) return;
 
-									if (tab.active && changeInfo.status == "loading") {
-										window.close();
-									}
-								});
-
-						})
-				}(),
-				// Load title text after ui.css ready
-				async function () { // Load ui.css
-					return new Promise(
-						resolve => {
-							if (document.querySelector("link#ui-style")) resolve();
-
-							var stylesheet = document.createElement("link");
-							document.head.appendChild(stylesheet),
-								stylesheet.id = "ui-style",
-								stylesheet.rel = "stylesheet",
-								stylesheet.href = "popup.css",
-								stylesheet.onload = () => {
-									resolve()
-								};
-						}
-					)
-				}()
-					.then(() => { // Load title text
-						document.querySelector("#title-text-container").innerHTML = platform.locale.getLocalizedText("title_text_element");
-					}),
-			]))
-
-	});
-
-top.DEPENDENCY.wait([{ id: "platform" }])
-	.then(() => {
-		platform.runtime.onMessage.addListener(
-			(message) => {
-				if (message["EVENT"]) {
-					if (m = message["EVENT"]["ui_gapi_helper.onSignIn"]) {
-						shit.ensureLoadComplete().
-							then(() => {
-								document.documentElement.classList.remove("before-sign-in");
+								if (tab.active && changeInfo.status == "loading") {
+									window.close();
+								}
 							});
-					}
-					if (m = message["EVENT"]["ui_gapi_helper.onSignInFailed"]) {
-						if (m.error == "FAIL: Get account from tab") {
-							shit.ensureLoadComplete().
-								then(() => refreshTab());
 
-						}
+					})
+			}(),
+			// Load title text after ui.css ready
+			async function () { // Load ui.css
+				return new Promise(
+					resolve => {
+						if (document.querySelector("link#ui-style")) resolve();
+
+						var stylesheet = document.createElement("link");
+						document.head.appendChild(stylesheet),
+							stylesheet.id = "ui-style",
+							stylesheet.rel = "stylesheet",
+							stylesheet.href = "popup.css",
+							stylesheet.onload = () => {
+								resolve()
+							};
 					}
-				}
-			},
-			{ listenLocal: true },
-		);
-	});
+				)
+			}()
+				.then(() => { // Load title text
+					document.querySelector("#title-text-container").innerHTML = platform.locale.getLocalizedText("title_text_element");
+				}),
+		])
+	);
 
 top.DEPENDENCY.wait([{ id: "feature_loader" }])
 	.then(
@@ -80,19 +76,19 @@ top.DEPENDENCY.wait([{ id: "feature_loader" }])
 				top.FEATURE,
 				"listready",
 				() => {
-					_ = async function () {
+					var _ = async function () {
 						return new Promise(
 							resolve => {
-								top.document.querySelector("#feature-menu-style") || (
-									stylesheet = top.document.createElement("link"),
-									top.document.head.appendChild(stylesheet),
-									stylesheet.id = "feature-menu-style",
-									stylesheet.rel = "stylesheet",
-									stylesheet.href = "/ui/feature-menu.css",
-									stylesheet.onload = () => {
-										resolve();
-									}
-								);
+								top.document.querySelector("#feature-menu-style") || function () {
+									var stylesheet = top.document.createElement("link");
+										top.document.head.appendChild(stylesheet);
+										stylesheet.id = "feature-menu-style";
+										stylesheet.rel = "stylesheet";
+										stylesheet.href = "/ui/feature-menu.css";
+										stylesheet.onload = () => {
+											resolve();
+										};
+								}();
 							}
 						)
 					}()
@@ -167,7 +163,7 @@ top.DEPENDENCY.wait([{ id: "feature_loader" }])
 	);
 
 // Load modules
-	[
-		{ id: "ui_gapi_helper", src: "./ui_gapi_helper.js" },
-		{ id: "feature_loader", src: "/feature/feature_loader.js" },
-	].map(top.DEPENDENCY.load);
+[
+	{ id: "ui_gapi_helper", src: "./ui_gapi_helper.js" },
+	{ id: "feature_loader", src: "/feature/feature_loader.js" },
+].map(top.DEPENDENCY.load);
