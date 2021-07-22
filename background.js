@@ -35,11 +35,5 @@ RegExp.escapeInput = (s) => {
 var WildcardURLRegExp = function (w) { return RegExp(RegExp.escapeInput(w).replace(/\*/g, ".*?")); };
 // end import
 
-try {
-    importScripts(
-        "/background/enable_extension.js",
-		"/background/gapi.js",
-    );
-} catch (error) {
-    console.error(error);
-}
+import "/background/enable_extension.js"
+import "/background/gapi.js"

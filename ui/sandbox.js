@@ -1,7 +1,8 @@
-/**** require /common/platform.js ****/
-/**** require /common/window_util.js ****/
+import {EventListener} from '/common/utils.js'
+import {shit} from '/common/window_utils.js';
+import platform from '/common/platform.js'
 
-var Sandbox = function () {
+export var Sandbox = function () {
     window.SANDBOX_RETURN_LISTENER || (window.SANDBOX_RETURN_LISTENER = EventListener().listen(
         window,
         "message", (e) => {

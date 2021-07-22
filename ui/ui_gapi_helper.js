@@ -1,4 +1,6 @@
-var UI_GAPI_HELPER = function () {
+import { Sandbox } from "./sandbox.js";
+
+top.UI_GAPI_HELPER = top.UI_GAPI_HELPER || function () {
 	var authToken = null;
 	var scopes = [];
 

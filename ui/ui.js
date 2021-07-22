@@ -1,6 +1,7 @@
-/**** require /common/window_util.js ****/
+import { EventListener } from '/common/utils.js'
+import platform from '/common/platform.js'
 
-async function refreshTab() {
+export async function refreshTab() {
     platform.tabs.query({ active: true, currentWindow: true })
         .then(
             ([tab]) => {
@@ -17,7 +18,7 @@ async function refreshTab() {
     window.close();
 }
 
-var DEPENDENCY = new function () {
+top.DEPENDENCY = top.DEPENDENCY || function () {
     var loaded = []
     var self = Object.assign(
         new EventTarget,
@@ -28,20 +29,20 @@ var DEPENDENCY = new function () {
             load: async function (dep) {
                 return new Promise(
                     resolve => {
-                        s = document.createElement("script"),
-                            s.type = "text/javascript",
-                            s.id = dep.id ? dep.id : null,
-                            s.src = dep.src,
-                            s.onload = () => {
-                                loaded.push(dep);
-                                resolve();
-                            },
-                            document.head.appendChild(s)
+                        var s = document.createElement("script");
+                        s.type = "module";
+                        s.id = dep.id ? dep.id : null;
+                        s.src = dep.src;
+                        s.onload = () => {
+                            loaded.push(dep);
+                            resolve();
+                        };
+                        document.head.appendChild(s);
                     }
                 )
-                .then(() =>{
-                    self.dispatchEvent((e = new Event("depload"), e.dep = dep, e));
-                })
+                    .then(() => {
+                        self.dispatchEvent(Object.assign(new Event("depload"), { "dep": dep }));
+                    })
             },
             loaded: () => { return loaded; },
             /**

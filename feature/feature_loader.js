@@ -1,3 +1,5 @@
+import platform from '/common/platform.js'
+
 top.FEATURE = top.FEATURE || function () {
     var self = Object.assign(
         new EventTarget,
@@ -27,8 +29,8 @@ top.FEATURE = top.FEATURE || function () {
             .then(r => r.json());
     }
 
-    _ = async function () {
-        await DEPENDENCY.wait([{ id: "platform" }])
+    var _ = async function () {
+        await top.DEPENDENCY.wait([{ id: "platform" }])
 
         // Load enabled features
         self.list = await fetch(platform.runtime.getURL("/feature/feature.json"))

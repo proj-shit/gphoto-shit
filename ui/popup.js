@@ -1,9 +1,14 @@
+import {EventListener} from '/common/utils.js'
+import {shit} from '/common/window_utils.js';
+import platform from '/common/platform.js'
+import './ui.js';
+
 shit.ensureLoadComplete()
 	.then(() => {
 		document.documentElement.classList.remove("before-load");
 	})
 	.then(() => {
-		DEPENDENCY.wait([{ id: "platform" }])
+		top.DEPENDENCY.wait([{ id: "platform" }])
 			.then(Promise.all([
 				// Close popup if refresh
 				async function () {
@@ -44,7 +49,7 @@ shit.ensureLoadComplete()
 
 	});
 
-DEPENDENCY.wait([{ id: "platform" }])
+top.DEPENDENCY.wait([{ id: "platform" }])
 	.then(() => {
 		platform.runtime.onMessage.addListener(
 			(message) => {
@@ -68,13 +73,7 @@ DEPENDENCY.wait([{ id: "platform" }])
 		);
 	});
 
-[
-	{ id: "ui_gapi_helper", src: "./ui_gapi_helper.js" },
-	{ id: "platform", src: "/common/platform.js" },
-	{ id: "feature_loader", src: "/feature/feature_loader.js" },
-].map(DEPENDENCY.load);
-
-DEPENDENCY.wait([{ id: "feature_loader" }])
+top.DEPENDENCY.wait([{ id: "feature_loader" }])
 	.then(
 		() => {
 			EventListener().listen(
@@ -166,3 +165,9 @@ DEPENDENCY.wait([{ id: "feature_loader" }])
 			);
 		}
 	);
+
+// Load modules
+	[
+		{ id: "ui_gapi_helper", src: "./ui_gapi_helper.js" },
+		{ id: "feature_loader", src: "/feature/feature_loader.js" },
+	].map(top.DEPENDENCY.load);

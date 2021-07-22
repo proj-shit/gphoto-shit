@@ -1,4 +1,6 @@
-var shit = shit || function () {
+import {EventListener} from '/common/utils.js'
+
+export var shit = shit || function () {
     var self = {};
 
     self.ensureLoadComplete = async function (w) {
@@ -42,29 +44,10 @@ var shit = shit || function () {
     return self;
 }();
 
-var EventListener = function () {
-    var self = {
-        listen: (target, eventName, func, options) => {
-            _target = target, _eventName = eventName, _func = func, _options = options;
-            _target.addEventListener(eventName, func, options);
-
-            return self;
-        },
-        cancel: () => {
-            _target.removeEventListener(_eventName, _func, _options);
-
-            return self;
-        }
-    }
-
-    var _target, _eventName, _func, _options;
-    return self;
-};
-
 /**
  * @param {(self:Object,params:{elapsedTime:number,deltaTime:number}) => void} onUpdateCallback 
  */
-var FrameUpdate = function (onUpdateCallback) {
+export var FrameUpdate = function (onUpdateCallback) {
     var elapsedTime = 0;
     var lastUpdateTime = null;
     var isDone = false;

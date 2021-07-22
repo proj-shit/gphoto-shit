@@ -1,3 +1,7 @@
+import { shit } from "/common/window_utils.js";
+import { FrameUpdate } from "/common/window_utils.js";
+import platform from "/common/platform.js";
+
 var STATE = {}
 
 STATE["auto-signin"] = async function () {
@@ -48,7 +52,7 @@ STATE["ready"] = async function () {
 		});
 };
 
-_ = function () {
+var _ = function () {
 	// #page-waiting-signin"
 	shit.ensureLoadComplete()
 		.then(top.DEPENDENCY.wait([{ id: "platform" }]))
@@ -75,8 +79,8 @@ _ = function () {
 
 			}).apply({ changeDelta: 0 });
 
-			page.querySelector("#dialog-title").innerHTML = top.platform.locale.getLocalizedText("Signing_in");
-			page.querySelector("#dialog-message").innerHTML = top.platform.locale.getLocalizedText("Please_continue_authorization_on_the_popup_window_triggered_by_your_browser");
+			page.querySelector("#dialog-title").innerHTML = platform.locale.getLocalizedText("Signing_in");
+			page.querySelector("#dialog-message").innerHTML = platform.locale.getLocalizedText("Please_continue_authorization_on_the_popup_window_triggered_by_your_browser");
 		});
 
 		// #page-ready"
@@ -90,12 +94,12 @@ _ = function () {
 				icon.style.fill = "#33a952";
 				icon.style.opacity = 0.5;
 	
-				page.querySelector("#dialog-title").innerHTML = top.platform.locale.getLocalizedText("Ready");
-				page.querySelector("#dialog-message").innerHTML = top.platform.locale.getLocalizedText("Choose_what_you_what_from_the_left_menu");
+				page.querySelector("#dialog-title").innerHTML = platform.locale.getLocalizedText("Ready");
+				page.querySelector("#dialog-message").innerHTML = platform.locale.getLocalizedText("Choose_what_you_what_from_the_left_menu");
 			});
 }()
 
-_ = function () {
+var _ = function () {
 	STATE["auto-signin"]()
 		.then(
 			STATE["ready"],
